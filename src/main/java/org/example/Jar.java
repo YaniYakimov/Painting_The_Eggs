@@ -28,15 +28,17 @@ public class Jar {
     }
     public synchronized Egg take() {
         try {
-            Egg egg = this.capacity.get(this.capacity.size()-1);
             while (capacity.size() <= 0) {
                 wait();
             }
+            Egg egg = this.capacity.get(this.capacity.size()-1);
+            this.capacity.remove(egg);
+            System.out.println("Quantity in this jar - " + this.capacity.size());
             if(egg.getPuttingTime().plusSeconds(egg.getBoilingTime()).isBefore(LocalDateTime.now())) {
                 Thread.sleep(egg.getBoilingTime());
             }
             notifyAll();
-            return capacity.get(capacity.size()-1);
+            return egg;
         }catch (InterruptedException e) {
             System.out.println("opa2");
             return null;

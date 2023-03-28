@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PaintingTable {
     private Map<Paint, Jar> jars = new HashMap<>();
@@ -18,6 +15,7 @@ public class PaintingTable {
     }
 
     public synchronized Egg takeFromBasket() {
+        System.out.println(this.basket.size());
         if (basket.size() > 0) {
             return this.basket.remove(this.basket.size()-1);
         }
@@ -25,24 +23,26 @@ public class PaintingTable {
     }
 
     public void putToJar(Egg egg) {
+        int chance = new Random().nextInt(5);
         Paint paint = null;
-        switch (paint) {
-            case GREEN -> paint = Paint.GREEN;
-            case RED -> paint = Paint.RED;
-            case BLUE -> paint = Paint.BLUE;
-            case YELLOW -> paint = Paint.YELLOW;
+        switch (chance) {
+            case 0 -> paint = Paint.GREEN;
+            case 1 -> paint = Paint.RED;
+            case 2 -> paint = Paint.BLUE;
+            case 3 -> paint = Paint.YELLOW;
             default -> paint = Paint.ORANGE;
         }
         this.jars.get(paint).put(egg);
         egg.addPaint(paint);
     }
     public Egg takeFromJar() {
+        int chance = new Random().nextInt(5);
         Paint paint = null;
-        switch (paint) {
-            case GREEN -> paint = Paint.GREEN;
-            case RED -> paint = Paint.RED;
-            case BLUE -> paint = Paint.BLUE;
-            case YELLOW -> paint = Paint.YELLOW;
+        switch (chance) {
+            case 0 -> paint = Paint.GREEN;
+            case 1 -> paint = Paint.RED;
+            case 2 -> paint = Paint.BLUE;
+            case 3 -> paint = Paint.YELLOW;
             default -> paint = Paint.ORANGE;
         }
         return this.jars.get(paint).take();

@@ -10,10 +10,18 @@ public class Kid extends Thread{
     public void run() {
         while(true) {
             Egg egg = this.table.takeFromBasket();
-            if(egg != null) {
-                this.table.putToJar(egg);
-                egg.addKid(this);
+            System.out.println("Kid "+ this.getName() + " take egg from basket");
+            if(egg == null) {
+                return;
             }
+            this.table.putToJar(egg);
+            System.out.println("Kid "+ this.getName() + " add egg to jar");
+            egg.addKid(this);
+//            if(egg != null) {
+//                this.table.putToJar(egg);
+//                System.out.println("Kid "+ this.getName() + " add egg to jar");
+//                egg.addKid(this);
+//            }
         }
     }
 }
